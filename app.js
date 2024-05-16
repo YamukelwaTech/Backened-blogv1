@@ -5,7 +5,7 @@ const app = express();
 const Blog = require("./functions/Blog");
 
 app.use(express.json());
-app.use(cors()); 
+app.use(cors());
 
 const blog = new Blog("blogPosts.json");
 
