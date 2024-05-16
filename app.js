@@ -1,9 +1,11 @@
 const express = require("express");
+const cors = require("cors");
 const PORT = process.env.PORT || 5000;
 const app = express();
 const Blog = require("./functions/Blog");
 
 app.use(express.json());
+app.use(cors()); 
 
 const blog = new Blog("blogPosts.json");
 
