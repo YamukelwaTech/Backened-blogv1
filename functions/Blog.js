@@ -64,6 +64,28 @@ class Blog {
     });
   }
 
+  updatePostByToken(token, updatedPostData, callback) {
+    this.readPostsFromFile((err, posts) => {
+      if (err) {
+        callback(err);
+        return;
+      }
+      const updatedPosts = posts.map((post) => {
+        if (post.token === token) {
+          return { ...post, ...updatedPostData };
+        }
+        return post;
+      });
+      this.writePostsToFile(updatedPosts, (err) => {
+        if (err) {
+          callback(err);
+          return;
+        }
+        callback(null);
+      });
+    });
+  }
+
   deletePostByToken(token, callback) {
     this.readPostsFromFile((err, posts) => {
       if (err) {

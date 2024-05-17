@@ -42,6 +42,21 @@ router.post("/", (req, res) => {
   });
 });
 
+// Route to update a post by token
+router.put("/:token", (req, res) => {
+  const token = req.params.token;
+  const updatedPostData = req.body;
+
+  blog.updatePostByToken(token, updatedPostData, (err) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send("Internal Server Error");
+      return;
+    }
+    res.sendStatus(204);
+  });
+});
+
 // Route to delete a post by token
 router.delete("/:token", (req, res) => {
   const token = req.params.token;
