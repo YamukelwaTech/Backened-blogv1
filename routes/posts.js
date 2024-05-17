@@ -16,14 +16,11 @@ router.get("/", (req, res) => {
   });
 });
 
-// Route to get a single post by ID
-router.get("/:id", (req, res) => {
-  const postId = parseInt(req.params.id);
-  if (isNaN(postId)) {
-    return res.status(400).send("Invalid post ID");
-  }
+// Route to get a single post by token
+router.get("/:token", (req, res) => {
+  const token = req.params.token;
 
-  blog.getPostById(postId, (err, post) => {
+  blog.getPostByToken(token, (err, post) => {
     if (err) {
       console.error(err);
       res.status(404).send("Post not found");
@@ -45,20 +42,17 @@ router.post("/", (req, res) => {
   });
 });
 
-// Route to delete a post by ID
-router.delete("/:id", (req, res) => {
-  const postId = parseInt(req.params.id);
-  if (isNaN(postId)) {
-    return res.status(400).send("Invalid post ID");
-  }
+// Route to delete a post by token
+router.delete("/:token", (req, res) => {
+  const token = req.params.token;
 
-  blog.deletePostById(postId, (err) => {
+  blog.deletePostByToken(token, (err) => {
     if (err) {
       console.error(err);
       res.status(500).send("Internal Server Error");
       return;
     }
-    res.sendStatus(204); 
+    res.sendStatus(204);
   });
 });
 

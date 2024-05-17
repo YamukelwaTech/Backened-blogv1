@@ -1,4 +1,5 @@
 const fs = require("fs");
+const { v4: uuidv4 } = require('uuid');
 
 class Blog {
   constructor(filePath) {
@@ -29,13 +30,13 @@ class Blog {
     this.readPostsFromFile(callback);
   }
 
-  getPostById(id, callback) {
+  getPostByToken(token, callback) {
     this.readPostsFromFile((err, posts) => {
       if (err) {
         callback(err);
         return;
       }
-      const post = posts.find((post) => post.id === id);
+      const post = posts.find((post) => post.token === token);
       if (!post) {
         callback(new Error("Post not found"), null);
         return;
@@ -50,8 +51,8 @@ class Blog {
         callback(err);
         return;
       }
-      const newId = posts.length ? Math.max(...posts.map(p => p.id)) + 1 : 1; 
-      post.id = newId;
+      const token = uuidv4(); // Generate a unique token
+      post.token = token;
       posts.push(post);
       this.writePostsToFile(posts, (err) => {
         if (err) {
@@ -63,13 +64,13 @@ class Blog {
     });
   }
 
-  deletePostById(id, callback) {
+  deletePostByToken(token, callback) {
     this.readPostsFromFile((err, posts) => {
       if (err) {
         callback(err);
         return;
       }
-      const updatedPosts = posts.filter((post) => post.id !== id);
+      const updatedPosts = posts.filter((post) => post.token !== token);
       this.writePostsToFile(updatedPosts, (err) => {
         if (err) {
           callback(err);
