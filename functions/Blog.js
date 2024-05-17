@@ -1,5 +1,4 @@
 const fs = require("fs");
-const Post = require("../functions/Post");
 
 class Blog {
   constructor(filePath) {
@@ -17,7 +16,7 @@ class Blog {
   }
 
   writePostsToFile(posts, callback) {
-    fs.writeFile(this.filePath, JSON.stringify(posts), "utf8", (err) => {
+    fs.writeFile(this.filePath, JSON.stringify(posts, null, 2), "utf8", (err) => {
       if (err) {
         callback(err);
         return;
@@ -38,31 +37,21 @@ class Blog {
       }
       const post = posts.find((post) => post.id === id);
       if (!post) {
-        callback("Post not found", null);
+        callback(new Error("Post not found"), null);
         return;
       }
       callback(null, post);
     });
   }
+
   createPost(post, callback) {
     this.readPostsFromFile((err, posts) => {
       if (err) {
         callback(err);
         return;
       }
-      const existingIds = posts.map((post) => post.id);
-      let id = posts.length + 1;
-      while (existingIds.includes(id)) {
-        id++;
-      }
-      if (existingIds.includes(post.id)) {
-        const error = new Error(
-          "This ID already exists, please use another one."
-        );
-        error.statusCode = 400;
-        return callback(error);
-      }
-      post.id = id;
+      const newId = posts.length ? Math.max(...posts.map(p => p.id)) + 1 : 1; 
+      post.id = newId;
       posts.push(post);
       this.writePostsToFile(posts, (err) => {
         if (err) {
