@@ -35,7 +35,7 @@ router.post("/", (req, res) => {
   const postData = req.body;
   blog.createPost(postData, (err, createdPost) => {
     if (err) {
-      res.status(err.statusCode || 500).send(err.message || "Internal Server Error");
+      res.status(500).send("Internal Server Error");
       return;
     }
     res.status(201).json(createdPost);
