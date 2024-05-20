@@ -7,7 +7,7 @@ app.use(express.json());
 app.use(cors());
 
 // Import routes
-const postsRoutes = require("./routes/posts");
+const postsRoutes = require("./routes/routes");
 
 // Use routes
 app.use("/posts", postsRoutes);
