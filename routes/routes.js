@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Blog = require("../functions/Blog");
 
-const blog = new Blog("src/data/blogPosts.json");
+const blog = new Blog("./data/blogPosts.json");
 
 // Route to get all posts
 router.get("/", (req, res) => {
