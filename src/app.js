@@ -11,7 +11,7 @@ app.use(cors());
 app.use('/assets', express.static(path.join(__dirname, './assets')));
 
 // Import routes
-const postsRoutes = require("../routes/routes");
+const postsRoutes = require("./routes/routes");
 
 // Use routes
 app.use("/posts", postsRoutes);
