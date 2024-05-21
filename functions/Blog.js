@@ -44,16 +44,27 @@ class Blog {
       callback(null, post);
     });
   }
-
   createPost(post, callback) {
+    const token = uuidv4(); // Generate a unique token
+    post.token = token;
+
+    // Set default values if properties are missing
+    post.title = post.title || "Default Title";
+    post.description = post.description || "Default Description";
+    post.content = post.content || "Default Content";
+    post.author = post.author || { name: "Unknown", email: "unknown@example.com" };
+    post.imageURL = post.imageURL || null;
+    post.backgroundimg = post.backgroundimg || null;
+    post.comments = post.comments || [];
+
     this.readPostsFromFile((err, posts) => {
       if (err) {
         callback(err);
         return;
       }
-      const token = uuidv4(); // Generate a unique token
-      post.token = token;
+
       posts.push(post);
+
       this.writePostsToFile(posts, (err) => {
         if (err) {
           callback(err);
@@ -63,6 +74,7 @@ class Blog {
       });
     });
   }
+
 
   updatePostByToken(token, updatedPostData, callback) {
     this.readPostsFromFile((err, posts) => {
