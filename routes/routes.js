@@ -1,6 +1,7 @@
 const express = require("express");
 const multer = require("multer");
 const { v4: uuidv4 } = require("uuid");
+const WebSocket = require("ws"); // Import WebSocket library
 const Blog = require("../functions/Blog");
 
 const router = express.Router();
@@ -79,6 +80,10 @@ const createPost = (req, res) => {
         console.error("Error creating post:", err);
         return res.status(500).send("Internal Server Error");
       }
+
+      // Broadcast new post to WebSocket clients
+      broadcastNewPost(createdPost);
+
       res.status(201).json(createdPost);
     });
   });
@@ -107,6 +112,21 @@ const deletePostByToken = (req, res) => {
   });
 };
 
+// WebSocket setup
+const wss = new WebSocket.Server({ noServer: true });
+
+wss.on("connection", (ws) => {
+  console.log("Client connected");
+});
+
+function broadcastNewPost(post) {
+  wss.clients.forEach((client) => {
+    if (client.readyState === WebSocket.OPEN) {
+      client.send(JSON.stringify({ type: "new_post", post }));
+    }
+  });
+}
+
 // Route definitions
 router.route("/").get(getAllPosts).post(createPost);
 
@@ -116,4 +136,4 @@ router
   .put(updatePostByToken)
   .delete(deletePostByToken);
 
-module.exports = router;
+module.exports = { router, wss }; // Export the router and WebSocket server

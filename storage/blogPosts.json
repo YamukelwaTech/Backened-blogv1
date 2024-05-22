@@ -175,31 +175,5 @@
     "imageURL": "http://localhost:5000/assets/faces/5.svg",
     "backgroundimg": "http://localhost:5000/assets/1.jpg",
     "comments": []
-  },
-  {
-    "title": "Default Title",
-    "description": "Default Description",
-    "content": "Default Content",
-    "author": {
-      "name": "",
-      "email": ""
-    },
-    "imageURL": "http://localhost:5000/assets/faces/0b215024-2554-44c2-a8cf-671b4e34e256-2.jpg",
-    "backgroundimg": "http://localhost:5000/assets/0ca1eebf-2809-4c3d-88f1-8cc50f9cdd59-3.jpg",
-    "token": "ba8e2f34-edaf-4a7c-ab72-cb74781ee877",
-    "comments": []
-  },
-  {
-    "title": "Bingo is here to stay",
-    "description": "love is fair",
-    "content": "n dcndcjbjkebvjkewbfjkefbjekwfbjewbfjewbfjewbfjewbfjewbfejwbj",
-    "author": {
-      "name": "",
-      "email": ""
-    },
-    "imageURL": "http://localhost:5000/assets/faces/70090639-bbf0-4c00-b3d0-0efd2a937cc2-7.svg",
-    "backgroundimg": "http://localhost:5000/assets/541b2a39-4731-43a3-9765-f1d07d850eba-0b215024-2554-44c2-a8cf-671b4e34e256-2.jpg",
-    "token": "b1a528bd-0c2e-4973-9fc4-c3eacafa9006",
-    "comments": []
   }
 ]
