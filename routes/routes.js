@@ -62,7 +62,7 @@ const createPost = (req, res) => {
       return res.status(400).send("Both images are required");
     }
 
-    const baseURL = "http://localhost:5000"; 
+    const baseURL = "http://localhost:5000";
 
     const postData = {
       ...req.body,
