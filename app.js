@@ -7,8 +7,8 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-// Serve static files (images) from the "public" directory
-app.use('/assets', express.static(path.join(__dirname, './assets')));
+
+app.use("/assets", express.static("assets"));
 
 // Import routes
 const postsRoutes = require("./routes/routes");
