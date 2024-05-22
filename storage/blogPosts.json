@@ -8,7 +8,7 @@
       "name": "Mango mash",
       "email": "example@example.com"
     },
-    "imageURL": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2nFWF6RykhKhvTEsLC68F8IyFls8hkMhnaw&s",
+    "imageURL": "http://localhost:5000/assets/faces/1.svg",
     "backgroundimg": "http://localhost:5000/assets/2.jpg",
     "comments": [
       {
@@ -32,7 +32,7 @@
       "name": "Hannah",
       "email": "example@example.com"
     },
-    "imageURL": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwlhpKtWNVv-q5z6uksEmehWlr7htWo0v_hA&s",
+    "imageURL": "http://localhost:5000/assets/faces/2.svg",
     "backgroundimg": "http://localhost:5000/assets/3.jpg",
     "comments": []
   },
@@ -45,7 +45,7 @@
       "name": "James",
       "email": "example@example.com"
     },
-    "imageURL": "https://howtodrawforkids.com/wp-content/uploads/2021/11/how-to-draw-Deadpool-for-kids.jpg",
+    "imageURL": "http://localhost:5000/assets/faces/3.svg",
     "backgroundimg": "http://localhost:5000/assets/4.jpg",
     "comments": []
   },
@@ -58,7 +58,7 @@
       "name": "Samantha",
       "email": "example@example.com"
     },
-    "imageURL": "https://howtodrawforkids.com/wp-content/uploads/2021/09/How-to-draw-the-mandalorian-for-kids-1.jpg",
+    "imageURL":"http://localhost:5000/assets/faces/4.svg",
     "backgroundimg": "http://localhost:5000/assets/5.jpg",
     "comments": []
   },
@@ -71,7 +71,7 @@
       "name": "Samantha",
       "email": "example@example.com"
     },
-    "imageURL": "https://howtodrawforkids.com/wp-content/uploads/2021/09/How-to-draw-the-mandalorian-for-kids-1.jpg",
+    "imageURL": "http://localhost:5000/assets/faces/5.svg",
     "backgroundimg": "http://localhost:5000/assets/6.jpg",
     "comments": []
   },
@@ -84,7 +84,7 @@
       "name": "Hannah",
       "email": "example@example.com"
     },
-    "imageURL": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwlhpKtWNVv-q5z6uksEmehWlr7htWo0v_hA&s",
+    "imageURL": "http://localhost:5000/assets/faces/6.svg",
     "backgroundimg": "http://localhost:5000/assets/7.jpg",
     "comments": []
   },
@@ -97,7 +97,7 @@
       "name": "Hannah",
       "email": "example@example.com"
     },
-    "imageURL": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwlhpKtWNVv-q5z6uksEmehWlr7htWo0v_hA&s",
+    "imageURL": "http://localhost:5000/assets/faces/7.svg",
     "backgroundimg": "http://localhost:5000/assets/8.jpg",
     "comments": []
   },
@@ -110,7 +110,7 @@
       "name": "Samantha",
       "email": "example@example.com"
     },
-    "imageURL": "https://howtodrawforkids.com/wp-content/uploads/2021/09/How-to-draw-the-mandalorian-for-kids-1.jpg",
+    "imageURL":"http://localhost:5000/assets/faces/1.svg",
     "backgroundimg": "http://localhost:5000/assets/9.jpg",
     "comments": []
   },
@@ -123,7 +123,7 @@
       "name": "Hannah",
       "email": "example@example.com"
     },
-    "imageURL": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwlhpKtWNVv-q5z6uksEmehWlr7htWo0v_hA&s",
+    "imageURL":"http://localhost:5000/assets/faces/2.svg",
     "backgroundimg": "http://localhost:5000/assets/10.jpg",
     "comments": []
   },
@@ -136,7 +136,7 @@
       "name": "Samantha",
       "email": "example@example.com"
     },
-    "imageURL": "https://howtodrawforkids.com/wp-content/uploads/2021/09/How-to-draw-the-mandalorian-for-kids-1.jpg",
+    "imageURL": "http://localhost:5000/assets/faces/3.svg",
     "backgroundimg": "http://localhost:5000/assets/11.jpg",
     "comments": []
   },
@@ -149,7 +149,7 @@
       "name": "Hannah",
       "email": "example@example.com"
     },
-    "imageURL": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwlhpKtWNVv-q5z6uksEmehWlr7htWo0v_hA&s",
+    "imageURL": "http://localhost:5000/assets/faces/4.svg",
     "backgroundimg": "http://localhost:5000/assets/12.jpg",
     "comments": []
   },
@@ -162,7 +162,7 @@
       "name": "Unknown",
       "email": "unknown@example.com"
     },
-    "imageURL": null,
+    "imageURL": "http://localhost:5000/assets/faces/5.svg",
     "backgroundimg": "http://localhost:5000/assets/1.jpg",
     "comments": []
   }
