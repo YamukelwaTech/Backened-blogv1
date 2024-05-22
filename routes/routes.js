@@ -1,8 +1,29 @@
 const express = require("express");
-const router = express.Router();
+const multer = require("multer");
+const { v4: uuidv4 } = require("uuid");
 const Blog = require("../functions/Blog");
 
+const router = express.Router();
 const blog = new Blog("./storage/blogPosts.json");
+
+// Configure multer storage
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    if (file.fieldname === "imageURL") {
+      cb(null, "assets/faces/");
+    } else if (file.fieldname === "backgroundimg") {
+      cb(null, "assets");
+    } else {
+      cb(null, "assets");
+    }
+  },
+  filename: (req, file, cb) => {
+    const uniqueName = `${uuidv4()}-${file.originalname}`;
+    cb(null, uniqueName);
+  },
+});
+
+const upload = multer({ storage: storage });
 
 // Handler functions
 const getAllPosts = (req, res) => {
@@ -27,12 +48,39 @@ const getPostByToken = (req, res) => {
 };
 
 const createPost = (req, res) => {
-  const postData = req.body;
-  blog.createPost(postData, (err, createdPost) => {
+  upload.fields([
+    { name: "imageURL", maxCount: 1 },
+    { name: "backgroundimg", maxCount: 1 },
+  ])(req, res, (err) => {
     if (err) {
+      console.error("Multer error:", err);
       return res.status(500).send("Internal Server Error");
     }
-    res.status(201).json(createdPost);
+
+    // Check if files were uploaded
+    if (!req.files || !req.files.imageURL || !req.files.backgroundimg) {
+      return res.status(400).send("Both images are required");
+    }
+
+    const baseURL = "http://localhost:5000"; 
+
+    const postData = {
+      ...req.body,
+      imageURL: req.files.imageURL
+        ? `${baseURL}/assets/faces/${req.files.imageURL[0].filename}` // Complete imageURL
+        : null,
+      backgroundimg: req.files.backgroundimg
+        ? `${baseURL}/assets/${req.files.backgroundimg[0].filename}` // Complete backgroundimg
+        : null,
+    };
+
+    blog.createPost(postData, (err, createdPost) => {
+      if (err) {
+        console.error("Error creating post:", err);
+        return res.status(500).send("Internal Server Error");
+      }
+      res.status(201).json(createdPost);
+    });
   });
 };
 
@@ -60,11 +108,10 @@ const deletePostByToken = (req, res) => {
 };
 
 // Route definitions
-router.route("/")
-  .get(getAllPosts)
-  .post(createPost);
+router.route("/").get(getAllPosts).post(createPost);
 
-router.route("/:token")
+router
+  .route("/:token")
   .get(getPostByToken)
   .put(updatePostByToken)
   .delete(deletePostByToken);
