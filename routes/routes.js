@@ -34,9 +34,10 @@ const getAllPosts = (req, res) => {
       return res.status(500).send("Internal Server Error");
     }
     // Modify imageURL and backgroundimg for each post to use the correct API URL dynamically
-    posts = posts.map(post => {
-      post.imageURL = req.protocol + '://' + req.get('host') + '/assets/faces/' + post.imageURL;
-      post.backgroundimg = req.protocol + '://' + req.get('host') + '/assets/' + post.backgroundimg;
+    posts = posts.map((post) => {
+      post.imageURL = req.protocol + "://" + req.get("host") + post.imageURL;
+      post.backgroundimg =
+        req.protocol + "://" + req.get("host") + post.backgroundimg;
       return post;
     });
     res.json(posts);
@@ -51,8 +52,9 @@ const getPostByToken = (req, res) => {
       return res.status(404).send("Post not found");
     }
     // Modify the imageURL and backgroundimg to use the correct API URL dynamically
-    post.imageURL = req.protocol + '://' + req.get('host') + '/assets/faces/' + post.imageURL;
-    post.backgroundimg = req.protocol + '://' + req.get('host') + '/assets/' + post.backgroundimg;
+    post.imageURL = req.protocol + "://" + req.get("host") + post.imageURL;
+    post.backgroundimg =
+      req.protocol + "://" + req.get("host") + post.backgroundimg;
     res.json(post);
   });
 };
@@ -74,10 +76,14 @@ const createPost = (req, res) => {
     const postData = {
       ...req.body,
       imageURL: req.files.imageURL
-        ? `${req.protocol}://${req.get('host')}/assets/faces/${req.files.imageURL[0].filename}`
+        ? `${req.protocol}://${req.get("host")}/assets/faces/${
+            req.files.imageURL[0].filename
+          }`
         : null,
       backgroundimg: req.files.backgroundimg
-        ? `${req.protocol}://${req.get('host')}/assets/${req.files.backgroundimg[0].filename}`
+        ? `${req.protocol}://${req.get("host")}/assets/${
+            req.files.backgroundimg[0].filename
+          }`
         : null,
     };
 
