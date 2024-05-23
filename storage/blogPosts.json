@@ -133,7 +133,7 @@
       "name": "Hannah",
       "email": "example@example.com"
     },
-    "imageURL": "https://blogbackend-yy9j.onrender.com/assets/faces/2.svg",
+    "imageURL": "${apiUrl}/assets/faces/2.svg",
     "backgroundimg": "${apiUrl}/assets/10.jpg",
     "comments": []
   },
