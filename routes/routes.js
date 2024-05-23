@@ -7,6 +7,9 @@ const Blog = require("../functions/Blog");
 const router = express.Router();
 const blog = new Blog("./storage/blogPosts.json");
 
+// Use environment variable for base URL
+const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+
 // Configure multer storage
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -62,15 +65,13 @@ const createPost = (req, res) => {
       return res.status(400).send("Both images are required");
     }
 
-    const baseURL = "http://localhost:5000";
-
     const postData = {
       ...req.body,
       imageURL: req.files.imageURL
-        ? `${baseURL}/assets/faces/${req.files.imageURL[0].filename}`
+        ? `${apiUrl}/assets/faces/${req.files.imageURL[0].filename}`
         : null,
       backgroundimg: req.files.backgroundimg
-        ? `${baseURL}/assets/${req.files.backgroundimg[0].filename}`
+        ? `${apiUrl}/assets/${req.files.backgroundimg[0].filename}`
         : null,
     };
 
