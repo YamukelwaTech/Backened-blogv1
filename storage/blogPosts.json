@@ -8,8 +8,8 @@
       "name": "Mango mash",
       "email": "example@example.com"
     },
-    "imageURL": "${apiUrl}/assets/faces/1.svg",
-    "backgroundimg": "${apiUrl}/assets/2.jpg",
+    "imageURL": "/assets/faces/1.svg",
+    "backgroundimg": "/assets/2.jpg",
     "comments": [
       {
         "user": "JohnDoe",
@@ -42,8 +42,8 @@
       "name": "Hannah",
       "email": "example@example.com"
     },
-    "imageURL": "${apiUrl}/assets/faces/2.svg",
-    "backgroundimg": "${apiUrl}/assets/3.jpg",
+    "imageURL": "/assets/faces/2.svg",
+    "backgroundimg": "/assets/3.jpg",
     "comments": []
   },
   {
@@ -55,8 +55,8 @@
       "name": "James",
       "email": "example@example.com"
     },
-    "imageURL": "${apiUrl}/assets/faces/3.svg",
-    "backgroundimg": "${apiUrl}/assets/4.jpg",
+    "imageURL": "/assets/faces/3.svg",
+    "backgroundimg": "/assets/4.jpg",
     "comments": []
   },
   {
@@ -68,8 +68,8 @@
       "name": "Samantha",
       "email": "example@example.com"
     },
-    "imageURL": "${apiUrl}/assets/faces/4.svg",
-    "backgroundimg": "${apiUrl}/assets/5.jpg",
+    "imageURL": "/assets/faces/4.svg",
+    "backgroundimg": "/assets/5.jpg",
     "comments": []
   },
   {
@@ -81,8 +81,8 @@
       "name": "Samantha",
       "email": "example@example.com"
     },
-    "imageURL": "${apiUrl}/assets/faces/5.svg",
-    "backgroundimg": "${apiUrl}/assets/6.jpg",
+    "imageURL": "/assets/faces/5.svg",
+    "backgroundimg": "/assets/6.jpg",
     "comments": []
   },
   {
@@ -94,8 +94,8 @@
       "name": "Hannah",
       "email": "example@example.com"
     },
-    "imageURL": "${apiUrl}/assets/faces/6.svg",
-    "backgroundimg": "${apiUrl}/assets/7.jpg",
+    "imageURL": "/assets/faces/6.svg",
+    "backgroundimg": "/assets/7.jpg",
     "comments": []
   },
   {
@@ -107,8 +107,8 @@
       "name": "Hannah",
       "email": "example@example.com"
     },
-    "imageURL": "${apiUrl}/assets/faces/7.svg",
-    "backgroundimg": "${apiUrl}/assets/8.jpg",
+    "imageURL": "/assets/faces/7.svg",
+    "backgroundimg": "/assets/8.jpg",
     "comments": []
   },
   {
@@ -120,8 +120,8 @@
       "name": "Samantha",
       "email": "example@example.com"
     },
-    "imageURL": "${apiUrl}/assets/faces/1.svg",
-    "backgroundimg": "${apiUrl}/assets/9.jpg",
+    "imageURL": "/assets/faces/1.svg",
+    "backgroundimg": "/assets/9.jpg",
     "comments": []
   },
   {
@@ -133,8 +133,8 @@
       "name": "Hannah",
       "email": "example@example.com"
     },
-    "imageURL": "${apiUrl}/assets/faces/2.svg",
-    "backgroundimg": "${apiUrl}/assets/10.jpg",
+    "imageURL": "/assets/faces/2.svg",
+    "backgroundimg": "/assets/10.jpg",
     "comments": []
   },
   {
@@ -146,8 +146,8 @@
       "name": "Samantha",
       "email": "example@example.com"
     },
-    "imageURL": "${apiUrl}/assets/faces/3.svg",
-    "backgroundimg": "${apiUrl}/assets/11.jpg",
+    "imageURL": "/assets/faces/3.svg",
+    "backgroundimg": "/assets/11.jpg",
     "comments": []
   },
   {
@@ -159,8 +159,8 @@
       "name": "Hannah",
       "email": "example@example.com"
     },
-    "imageURL": "${apiUrl}/assets/faces/4.svg",
-    "backgroundimg": "${apiUrl}/assets/12.jpg",
+    "imageURL": "/assets/faces/4.svg",
+    "backgroundimg": "/assets/12.jpg",
     "comments": []
   },
   {
@@ -172,8 +172,8 @@
       "name": "Unknown",
       "email": "unknown@example.com"
     },
-    "imageURL": "${apiUrl}/assets/faces/5.svg",
-    "backgroundimg": "${apiUrl}/assets/1.jpg",
+    "imageURL": "/assets/faces/5.svg",
+    "backgroundimg": "/assets/1.jpg",
     "comments": []
   },
   {
@@ -184,8 +184,8 @@
       "name": "",
       "email": ""
     },
-    "imageURL": "${apiUrl}/assets/faces/56b0419a-1297-4d3b-9a79-c361fe314f02-2.svg",
-    "backgroundimg": "${apiUrl}/assets/dcb089f6-308b-4dad-890d-6c6423ed0101-4.svg",
+    "imageURL": "/assets/faces/56b0419a-1297-4d3b-9a79-c361fe314f02-2.svg",
+    "backgroundimg": "/assets/dcb089f6-308b-4dad-890d-6c6423ed0101-4.svg",
     "token": "59119656-3d93-4d0c-bc88-9f44c88d6682",
     "comments": []
   }
