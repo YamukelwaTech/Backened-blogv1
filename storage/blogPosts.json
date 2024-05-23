@@ -175,5 +175,18 @@
     "imageURL": "http://localhost:5000/assets/faces/5.svg",
     "backgroundimg": "http://localhost:5000/assets/1.jpg",
     "comments": []
+  },
+  {
+    "title": "sassy is goog",
+    "description": "Default Description",
+    "content": "Default Content",
+    "author": {
+      "name": "",
+      "email": ""
+    },
+    "imageURL": "http://localhost:5000/assets/faces/56b0419a-1297-4d3b-9a79-c361fe314f02-2.svg",
+    "backgroundimg": "http://localhost:5000/assets/dcb089f6-308b-4dad-890d-6c6423ed0101-4.svg",
+    "token": "59119656-3d93-4d0c-bc88-9f44c88d6682",
+    "comments": []
   }
 ]

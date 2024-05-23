@@ -1,7 +1,7 @@
 const express = require("express");
 const multer = require("multer");
 const { v4: uuidv4 } = require("uuid");
-const WebSocket = require("ws"); // Import WebSocket library
+const WebSocket = require("ws");
 const Blog = require("../functions/Blog");
 
 const router = express.Router();
@@ -58,7 +58,6 @@ const createPost = (req, res) => {
       return res.status(500).send("Internal Server Error");
     }
 
-    // Check if files were uploaded
     if (!req.files || !req.files.imageURL || !req.files.backgroundimg) {
       return res.status(400).send("Both images are required");
     }
@@ -68,10 +67,10 @@ const createPost = (req, res) => {
     const postData = {
       ...req.body,
       imageURL: req.files.imageURL
-        ? `${baseURL}/assets/faces/${req.files.imageURL[0].filename}` // Complete imageURL
+        ? `${baseURL}/assets/faces/${req.files.imageURL[0].filename}`
         : null,
       backgroundimg: req.files.backgroundimg
-        ? `${baseURL}/assets/${req.files.backgroundimg[0].filename}` // Complete backgroundimg
+        ? `${baseURL}/assets/${req.files.backgroundimg[0].filename}`
         : null,
     };
 
@@ -81,7 +80,6 @@ const createPost = (req, res) => {
         return res.status(500).send("Internal Server Error");
       }
 
-      // Broadcast new post to WebSocket clients
       broadcastNewPost(createdPost);
 
       res.status(201).json(createdPost);
@@ -136,4 +134,4 @@ router
   .put(updatePostByToken)
   .delete(deletePostByToken);
 
-module.exports = { router, wss }; // Export the router and WebSocket server
+module.exports = { router, wss };
