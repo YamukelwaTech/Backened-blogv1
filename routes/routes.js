@@ -8,7 +8,7 @@ const router = express.Router();
 const blog = new Blog("./storage/blogPosts.json");
 
 // Use environment variable for base URL
-const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+const apiUrl = process.env.PORT || 'http://localhost:5000';
 
 // Configure multer storage
 const storage = multer.diskStorage({
