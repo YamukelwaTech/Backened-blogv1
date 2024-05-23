@@ -7,9 +7,6 @@ const Blog = require("../functions/Blog");
 const router = express.Router();
 const blog = new Blog("./storage/blogPosts.json");
 
-// Use environment variable for base URL
-const apiUrl = process.env.REACT_APP_API_URL || '  http://localhost:5000';
-
 // Configure multer storage
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -36,6 +33,12 @@ const getAllPosts = (req, res) => {
       console.error(err);
       return res.status(500).send("Internal Server Error");
     }
+    // Modify imageURL and backgroundimg for each post to use the correct API URL dynamically
+    posts = posts.map(post => {
+      post.imageURL = req.protocol + '://' + req.get('host') + '/assets/faces/' + post.imageURL;
+      post.backgroundimg = req.protocol + '://' + req.get('host') + '/assets/' + post.backgroundimg;
+      return post;
+    });
     res.json(posts);
   });
 };
@@ -47,6 +50,9 @@ const getPostByToken = (req, res) => {
       console.error(err);
       return res.status(404).send("Post not found");
     }
+    // Modify the imageURL and backgroundimg to use the correct API URL dynamically
+    post.imageURL = req.protocol + '://' + req.get('host') + '/assets/faces/' + post.imageURL;
+    post.backgroundimg = req.protocol + '://' + req.get('host') + '/assets/' + post.backgroundimg;
     res.json(post);
   });
 };
@@ -68,10 +74,10 @@ const createPost = (req, res) => {
     const postData = {
       ...req.body,
       imageURL: req.files.imageURL
-        ? `${apiUrl}/assets/faces/${req.files.imageURL[0].filename}`
+        ? `${req.protocol}://${req.get('host')}/assets/faces/${req.files.imageURL[0].filename}`
         : null,
       backgroundimg: req.files.backgroundimg
-        ? `${apiUrl}/assets/${req.files.backgroundimg[0].filename}`
+        ? `${req.protocol}://${req.get('host')}/assets/${req.files.backgroundimg[0].filename}`
         : null,
     };
 
