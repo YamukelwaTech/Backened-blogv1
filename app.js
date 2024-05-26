@@ -1,28 +1,25 @@
-// Import required modules
-const express = require("express"); // Importing Express.js framework
-const cors = require("cors"); // Importing CORS middleware
-// const path = require("path"); 
-const http = require("http"); // Importing Node.js HTTP module for creating HTTP server
-const { router: postsRoutes, wss } = require("./routes/routes"); // Importing router and WebSocket instance from custom routes module
+const express = require("express");
+const cors = require("cors");
+const http = require("http");
+const { router: postsRoutes, wss } = require("./routes/routes");
+const sslRedirect = require('express-sslify');
 
-// Define the port number to listen on, default to 5000 if not provided by the environment
 const PORT = process.env.PORT || 5000;
 
-// Initialize Express application
 const app = express();
-
-// Create HTTP server
 const server = http.createServer(app);
 
+// Trust the X-Forwarded-Proto header (required for Heroku)
+app.set('trust proxy', true);
+
 // Middleware setup
-app.use(express.json()); // Parse incoming JSON requests
-app.use(cors()); // Enable Cross-Origin Resource Sharing for all routes
-
-// Serve static files from the 'assets' directory
+app.use(express.json());
+app.use(cors());
 app.use("/assets", express.static("assets"));
-
-// Use the defined routes for handling requests starting with '/posts'
 app.use("/posts", postsRoutes);
+
+// Redirect HTTP to HTTPS
+app.use(sslRedirect.HTTPS({ trustProtoHeader: true }));
 
 // WebSocket upgrade handling
 server.on("upgrade", (request, socket, head) => {
@@ -31,7 +28,6 @@ server.on("upgrade", (request, socket, head) => {
   });
 });
 
-// Start the server, listening on the specified port
 server.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
