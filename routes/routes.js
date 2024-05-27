@@ -81,14 +81,10 @@ const createPost = (req, res) => {
     const postData = {
       ...req.body,
       imageURL: req.files.imageURL
-        ? `${req.protocol}://${req.get("host")}/assets/faces/${
-            req.files.imageURL[0].filename
-          }`
+        ? `/assets/faces/${req.files.imageURL[0].filename}`
         : null,
       backgroundimg: req.files.backgroundimg
-        ? `${req.protocol}://${req.get("host")}/assets/${
-            req.files.backgroundimg[0].filename
-          }`
+        ? `/assets/${req.files.backgroundimg[0].filename}`
         : null,
     };
 
