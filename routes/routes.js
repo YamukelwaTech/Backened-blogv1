@@ -62,6 +62,7 @@ const getPostByToken = (req, res) => {
   });
 };
 
+// Handler function to create a new post
 const createPost = (req, res) => {
   upload.fields([
     { name: "imageURL", maxCount: 1 },
@@ -119,6 +120,30 @@ const deletePostByToken = (req, res) => {
   });
 };
 
+// Handler function to add a comment to a post
+const addCommentToPost = (req, res) => {
+  const token = req.params.token; // Get the post token from request parameters
+  const { user, text } = req.body; // Get the comment data from request body
+
+  if (!user || !text) {
+    return res.status(400).send("User and text are required");
+  }
+
+  const comment = {
+    user,
+    text,
+    timestamp: new Date().toISOString(),
+  };
+
+  blog.addCommentToPost(token, comment, (err, comment) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).send("Internal Server Error");
+    }
+    res.status(200).json(comment); // Respond with the added comment
+  });
+};
+
 // WebSocket server setup
 const wss = new WebSocket.Server({ noServer: true });
 
@@ -143,6 +168,8 @@ router
   .get(getPostByToken) // Route for getting a post by token
   .put(updatePostByToken) // Route for updating a post by token
   .delete(deletePostByToken); // Route for deleting a post by token
+
+router.route("/:token/comments").post(addCommentToPost); // Route for adding a comment to a post
 
 // Export the router and WebSocket server
 module.exports = { router, wss };

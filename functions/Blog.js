@@ -162,6 +162,36 @@ class Blog {
       });
     });
   }
+
+  /**
+   * Adds a comment to a post by its token
+   * @param {string} token - The unique token of the post to add a comment to.
+   * @param {Object} comment - The comment object to add.
+   * @param {function} callback - Callback function to handle the response.
+   */
+  addCommentToPost(token, comment, callback) {
+    // Read the existing posts from the file
+    this.readPostsFromFile((err, posts) => {
+      if (err) {
+        callback(err); // If there's an error reading the file, pass the error to the callback
+        return;
+      }
+      const post = posts.find((post) => post.token === token); // Find the post with the matching token
+      if (!post) {
+        callback(new Error("Post not found")); // If post is not found, pass an error to the callback
+        return;
+      }
+      post.comments.push(comment); // Add the comment to the post's comments array
+      // Write the updated posts array to the file
+      this.writePostsToFile(posts, (err) => {
+        if (err) {
+          callback(err); // If there's an error writing to the file, pass the error to the callback
+          return;
+        }
+        callback(null, comment); // If successful, pass the new comment to the callback
+      });
+    });
+  }
 }
 
 // Export the Blog class for use in other modules
