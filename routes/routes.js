@@ -62,7 +62,6 @@ const getPostByToken = (req, res) => {
   });
 };
 
-// Handler function to create a new post
 const createPost = (req, res) => {
   upload.fields([
     { name: "imageURL", maxCount: 1 },
@@ -77,27 +76,20 @@ const createPost = (req, res) => {
       return res.status(400).send("Both images are required");
     }
 
-    // Prepare post data with the uploaded file paths
     const postData = {
       ...req.body,
-      imageURL: req.files.imageURL
-        ? `/assets/faces/${req.files.imageURL[0].filename}`
-        : null,
-      backgroundimg: req.files.backgroundimg
-        ? `/assets/${req.files.backgroundimg[0].filename}`
-        : null,
+      imageURL: req.files.imageURL ? `/assets/faces/${req.files.imageURL[0].filename}` : null,
+      backgroundimg: req.files.backgroundimg ? `/assets/${req.files.backgroundimg[0].filename}` : null,
     };
 
-    // Create the new post
     blog.createPost(postData, (err, createdPost) => {
       if (err) {
         console.error("Error creating post:", err);
         return res.status(500).send("Internal Server Error");
       }
 
-      broadcastNewPost(createdPost); // Broadcast the new post to all WebSocket clients
-
-      res.status(201).json(createdPost); // Send the created post as JSON response
+      broadcastNewPost(createdPost);
+      res.status(201).json(createdPost);
     });
   });
 };
