@@ -2,7 +2,7 @@
 const express = require("express"); // Express framework for building web applications
 const multer = require("multer"); // Multer for handling file uploads
 const { v4: uuidv4 } = require("uuid"); // Module to generate unique identifiers
-const WebSocket = require("ws"); // WebSocket library for real-time communication
+// const WebSocket = require("ws");
 const Blog = require("../functions/Blog"); // Blog class for managing blog posts
 
 const router = express.Router(); // Create a new router instance
@@ -155,21 +155,21 @@ const addCommentToPost = (req, res) => {
   });
 };
 
-// WebSocket server setup
-const wss = new WebSocket.Server({ noServer: true });
+// // WebSocket server setup
+// const wss = new WebSocket.Server({ noServer: true });
 
-wss.on("connection", (ws) => {
-  console.log("Client connected"); // Log when a client connects
-});
+// wss.on("connection", (ws) => {
+//   console.log("Client connected"); // Log when a client connects
+// });
 
-// Function to broadcast new posts to all connected WebSocket clients
-function broadcastNewPost(post) {
-  wss.clients.forEach((client) => {
-    if (client.readyState === WebSocket.OPEN) {
-      client.send(JSON.stringify({ type: "new_post", post })); // Send new post data to the client
-    }
-  });
-}
+// // Function to broadcast new posts to all connected WebSocket clients
+// function broadcastNewPost(post) {
+//   wss.clients.forEach((client) => {
+//     if (client.readyState === WebSocket.OPEN) {
+//       client.send(JSON.stringify({ type: "new_post", post })); // Send new post data to the client
+//     }
+//   });
+// }
 
 // Define routes
 router.route("/").get(getAllPosts).post(createPost); // Route for getting all posts and creating a new post
@@ -183,4 +183,4 @@ router
 router.route("/:token/comments").post(addCommentToPost); // Route for adding a comment to a post
 
 // Export the router and WebSocket server
-module.exports = { router, wss };
+module.exports = { router};

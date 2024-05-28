@@ -89,7 +89,7 @@ class Blog {
     // Read the existing posts from the file
     this.readPostsFromFile((err, posts) => {
       if (err) {
-        callback(err); // If there's an error reading the file, pass the error to the callback
+        callback(err); 
         return;
       }
 
@@ -98,7 +98,7 @@ class Blog {
       // Write the updated posts array to the file
       this.writePostsToFile(posts, (err) => {
         if (err) {
-          callback(err); // If there's an error writing to the file, pass the error to the callback
+          callback(err);
           return;
         }
         callback(null, post); // If successful, pass the new post to the callback

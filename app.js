@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const http = require("http");
-const { router: postsRoutes, wss } = require("./routes/routes");
+const { router: postsRoutes} = require("./routes/routes");
 const sslRedirect = require('express-sslify');
 
 const PORT = process.env.PORT || 5000;
@@ -21,12 +21,12 @@ app.use("/posts", postsRoutes);
 // Redirect HTTP to HTTPS
 app.use(sslRedirect.HTTPS({ trustProtoHeader: true }));
 
-// WebSocket upgrade handling
-server.on("upgrade", (request, socket, head) => {
-  wss.handleUpgrade(request, socket, head, (ws) => {
-    wss.emit("connection", ws, request);
-  });
-});
+// // WebSocket upgrade handling
+// server.on("upgrade", (request, socket, head) => {
+//   wss.handleUpgrade(request, socket, head, (ws) => {
+//     wss.emit("connection", ws, request);
+//   });
+// });
 
 server.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
