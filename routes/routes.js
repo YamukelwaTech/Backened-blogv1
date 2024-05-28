@@ -111,14 +111,25 @@ const updatePostByToken = (req, res) => {
 // Handler function to delete a post by its token
 const deletePostByToken = (req, res) => {
   const token = req.params.token; // Get the token from request parameters
-  blog.deletePostByToken(token, (err) => {
+
+  // Check if the post exists before attempting to delete it
+  blog.getPostByToken(token, (err, post) => {
     if (err) {
-      console.error(err);
-      return res.status(500).send("Internal Server Error");
+      console.error(`Error fetching post with token ${token}:`, err);
+      return res.status(404).send("Post not found");
     }
-    res.sendStatus(204); // Send 204 No Content status on successful deletion
+
+    // If the post exists, proceed to delete it
+    blog.deletePostByToken(token, (err) => {
+      if (err) {
+        console.error(`Error deleting post with token ${token}:`, err);
+        return res.status(500).send("Internal Server Error");
+      }
+      res.sendStatus(204); // Send 204 No Content status on successful deletion
+    });
   });
 };
+
 
 // Handler function to add a comment to a post
 const addCommentToPost = (req, res) => {

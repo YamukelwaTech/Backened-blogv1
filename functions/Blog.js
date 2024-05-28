@@ -1,4 +1,3 @@
-// Import the required modules
 const fs = require("fs"); // Module to work with the file system
 const { v4: uuidv4 } = require('uuid'); // Module to generate unique identifiers
 
@@ -144,21 +143,28 @@ class Blog {
    * @param {function} callback - Callback function to handle the response.
    */
   deletePostByToken(token, callback) {
-    // Read the existing posts from the file
-    this.readPostsFromFile((err, posts) => {
+    // First, check if the post exists before attempting to delete it
+    this.getPostByToken(token, (err, post) => {
       if (err) {
-        callback(err); // If there's an error reading the file, pass the error to the callback
+        callback(new Error("Post not found")); // If there's an error or post is not found, pass an error to the callback
         return;
       }
-      // Filter out the post with the matching token
-      const updatedPosts = posts.filter((post) => post.token !== token);
-      // Write the updated posts array to the file
-      this.writePostsToFile(updatedPosts, (err) => {
+      // Read the existing posts from the file
+      this.readPostsFromFile((err, posts) => {
         if (err) {
-          callback(err); // If there's an error writing to the file, pass the error to the callback
+          callback(err); // If there's an error reading the file, pass the error to the callback
           return;
         }
-        callback(null); // If successful, pass null to the callback
+        // Filter out the post with the matching token
+        const updatedPosts = posts.filter((post) => post.token !== token);
+        // Write the updated posts array to the file
+        this.writePostsToFile(updatedPosts, (err) => {
+          if (err) {
+            callback(err); // If there's an error writing to the file, pass the error to the callback
+            return;
+          }
+          callback(null); // If successful, pass null to the callback
+        });
       });
     });
   }
