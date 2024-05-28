@@ -89,7 +89,7 @@ const createPost = (req, res) => {
         return res.status(500).send("Internal Server Error");
       }
 
-      broadcastNewPost(createdPost);
+      // broadcastNewPost(createdPost);
       res.status(201).json(createdPost);
     });
   });
