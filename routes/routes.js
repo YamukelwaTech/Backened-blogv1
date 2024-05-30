@@ -1,32 +1,29 @@
-// Import the required modules
-const express = require("express"); // Express framework for building web applications
-const multer = require("multer"); // Multer for handling file uploads
-const { v4: uuidv4 } = require("uuid"); // Module to generate unique identifiers
-// const WebSocket = require("ws");
-const Blog = require("../functions/Blog"); // Blog class for managing blog posts
+const express = require("express");
+const multer = require("multer");
+const { v4: uuidv4 } = require("uuid");
+const Blog = require("../functions/Blog");
 
-const router = express.Router(); // Create a new router instance
-const blog = new Blog("./storage/blogPosts.json"); // Create a new Blog instance with the specified file path
+const router = express.Router();
+const blog = new Blog("./storage/blogPosts.json");
 
 // Configure multer storage for file uploads
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    // Set the destination based on the fieldname
     if (file.fieldname === "imageURL") {
-      cb(null, "assets/faces/"); // Store face images in 'assets/faces/' directory
+      cb(null, "assets/faces/");
     } else if (file.fieldname === "backgroundimg") {
-      cb(null, "assets"); // Store background images in 'assets' directory
+      cb(null, "assets");
     } else {
-      cb(null, "assets"); // Default storage directory
+      cb(null, "assets");
     }
   },
   filename: (req, file, cb) => {
-    const uniqueName = `${uuidv4()}-${file.originalname}`; // Generate a unique filename
-    cb(null, uniqueName); // Set the filename for the uploaded file
+    const uniqueName = `${uuidv4()}-${file.originalname}`;
+    cb(null, uniqueName);
   },
 });
 
-const upload = multer({ storage: storage }); // Create a multer instance with the configured storage
+const upload = multer({ storage: storage });
 
 // Handler function to get all posts
 const getAllPosts = (req, res) => {
@@ -35,30 +32,26 @@ const getAllPosts = (req, res) => {
       console.error(err);
       return res.status(500).send("Internal Server Error");
     }
-    // Modify imageURL and backgroundimg for each post to use the correct API URL dynamically
     posts = posts.map((post) => {
-      post.imageURL = req.protocol + "://" + req.get("host") + post.imageURL;
-      post.backgroundimg =
-        req.protocol + "://" + req.get("host") + post.backgroundimg;
+      post.imageURL = `${req.protocol}://${req.get("host")}${post.imageURL}`;
+      post.backgroundimg = `${req.protocol}://${req.get("host")}${post.backgroundimg}`;
       return post;
     });
-    res.json(posts); // Send the modified posts as JSON response
+    res.json(posts);
   });
 };
 
 // Handler function to get a post by its token
 const getPostByToken = (req, res) => {
-  const token = req.params.token; // Get the token from request parameters
+  const token = req.params.token;
   blog.getPostByToken(token, (err, post) => {
     if (err) {
       console.error(err);
       return res.status(404).send("Post not found");
     }
-    // Modify the imageURL and backgroundimg to use the correct API URL dynamically
-    post.imageURL = req.protocol + "://" + req.get("host") + post.imageURL;
-    post.backgroundimg =
-      req.protocol + "://" + req.get("host") + post.backgroundimg;
-    res.json(post); // Send the post as JSON response
+    post.imageURL = `${req.protocol}://${req.get("host")}${post.imageURL}`;
+    post.backgroundimg = `${req.protocol}://${req.get("host")}${post.backgroundimg}`;
+    res.json(post);
   });
 };
 
@@ -79,8 +72,8 @@ const createPost = (req, res) => {
 
     const postData = {
       ...req.body,
-      imageURL: req.files.imageURL ? `/assets/faces/${req.files.imageURL[0].filename}` : null,
-      backgroundimg: req.files.backgroundimg ? `/assets/${req.files.backgroundimg[0].filename}` : null,
+      imageURL: `/assets/faces/${req.files.imageURL[0].filename}`,
+      backgroundimg: `/assets/${req.files.backgroundimg[0].filename}`,
     };
 
     blog.createPost(postData, (err, createdPost) => {
@@ -89,7 +82,6 @@ const createPost = (req, res) => {
         return res.status(500).send("Internal Server Error");
       }
 
-      // broadcastNewPost(createdPost);
       res.status(201).json(createdPost);
     });
   });
@@ -97,44 +89,41 @@ const createPost = (req, res) => {
 
 // Handler function to update a post by its token
 const updatePostByToken = (req, res) => {
-  const token = req.params.token; // Get the token from request parameters
-  const updatedPostData = req.body; // Get the updated post data from request body
+  const token = req.params.token;
+  const updatedPostData = req.body;
   blog.updatePostByToken(token, updatedPostData, (err) => {
     if (err) {
       console.error(err);
       return res.status(500).send("Internal Server Error");
     }
-    res.sendStatus(204); // Send 204 No Content status on successful update
+    res.sendStatus(204);
   });
 };
 
 // Handler function to delete a post by its token
 const deletePostByToken = (req, res) => {
-  const token = req.params.token; // Get the token from request parameters
+  const token = req.params.token;
 
-  // Check if the post exists before attempting to delete it
   blog.getPostByToken(token, (err, post) => {
     if (err) {
       console.error(`Error fetching post with token ${token}:`, err);
       return res.status(404).send("Post not found");
     }
 
-    // If the post exists, proceed to delete it
     blog.deletePostByToken(token, (err) => {
       if (err) {
         console.error(`Error deleting post with token ${token}:`, err);
         return res.status(500).send("Internal Server Error");
       }
-      res.sendStatus(204); // Send 204 No Content status on successful deletion
+      res.sendStatus(204);
     });
   });
 };
 
-
 // Handler function to add a comment to a post
 const addCommentToPost = (req, res) => {
-  const token = req.params.token; // Get the post token from request parameters
-  const { user, text } = req.body; // Get the comment data from request body
+  const token = req.params.token;
+  const { user, text } = req.body;
 
   if (!user || !text) {
     return res.status(400).send("User and text are required");
@@ -151,36 +140,30 @@ const addCommentToPost = (req, res) => {
       console.error(err);
       return res.status(500).send("Internal Server Error");
     }
-    res.status(200).json(comment); // Respond with the added comment
+    res.status(200).json(comment);
   });
 };
 
-// // WebSocket server setup
+// WebSocket server setup (commented out for now)
 // const wss = new WebSocket.Server({ noServer: true });
 
 // wss.on("connection", (ws) => {
-//   console.log("Client connected"); // Log when a client connects
+//   console.log("Client connected");
 // });
 
-// // Function to broadcast new posts to all connected WebSocket clients
+// Function to broadcast new posts to all connected WebSocket clients (commented out for now)
 // function broadcastNewPost(post) {
 //   wss.clients.forEach((client) => {
 //     if (client.readyState === WebSocket.OPEN) {
-//       client.send(JSON.stringify({ type: "new_post", post })); // Send new post data to the client
+//       client.send(JSON.stringify({ type: "new_post", post }));
 //     }
 //   });
 // }
 
 // Define routes
-router.route("/").get(getAllPosts).post(createPost); // Route for getting all posts and creating a new post
+router.route("/").get(getAllPosts).post(createPost);
+router.route("/:token").get(getPostByToken).put(updatePostByToken).delete(deletePostByToken);
+router.route("/:token/comments").post(addCommentToPost);
 
-router
-  .route("/:token")
-  .get(getPostByToken) // Route for getting a post by token
-  .put(updatePostByToken) // Route for updating a post by token
-  .delete(deletePostByToken); // Route for deleting a post by token
-
-router.route("/:token/comments").post(addCommentToPost); // Route for adding a comment to a post
-
-// Export the router and WebSocket server
-module.exports = { router};
+// Export the router and WebSocket server (commented out for now)
+module.exports = { router };
