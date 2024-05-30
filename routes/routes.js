@@ -25,6 +25,12 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
+// Helper function to construct URLs with HTTPS
+const constructUrl = (req, path) => {
+  const protocol = req.secure ? 'https' : 'http';
+  return `${protocol}://${req.get("host")}${path}`;
+};
+
 // Handler function to get all posts
 const getAllPosts = (req, res) => {
   blog.getAllPosts((err, posts) => {
@@ -33,8 +39,8 @@ const getAllPosts = (req, res) => {
       return res.status(500).send("Internal Server Error");
     }
     posts = posts.map((post) => {
-      post.imageURL = `${req.protocol}://${req.get("host")}${post.imageURL}`;
-      post.backgroundimg = `${req.protocol}://${req.get("host")}${post.backgroundimg}`;
+      post.imageURL = constructUrl(req, post.imageURL);
+      post.backgroundimg = constructUrl(req, post.backgroundimg);
       return post;
     });
     res.json(posts);
@@ -49,8 +55,8 @@ const getPostByToken = (req, res) => {
       console.error(err);
       return res.status(404).send("Post not found");
     }
-    post.imageURL = `${req.protocol}://${req.get("host")}${post.imageURL}`;
-    post.backgroundimg = `${req.protocol}://${req.get("host")}${post.backgroundimg}`;
+    post.imageURL = constructUrl(req, post.imageURL);
+    post.backgroundimg = constructUrl(req, post.backgroundimg);
     res.json(post);
   });
 };
@@ -165,5 +171,4 @@ router.route("/").get(getAllPosts).post(createPost);
 router.route("/:token").get(getPostByToken).put(updatePostByToken).delete(deletePostByToken);
 router.route("/:token/comments").post(addCommentToPost);
 
-// Export the router and WebSocket server (commented out for now)
 module.exports = { router };
