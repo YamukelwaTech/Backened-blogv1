@@ -8,7 +8,7 @@
 
 ---
 
-###### Tech Stack: NodeJs Express MySQL
+###### Tech Stack: NodeJs Express Postman
 
 ---
 
@@ -20,7 +20,7 @@
 
 ##### - Routes to delete, see all or see one post, Route to add and delete comments, route to edit a post.
 
-##### - MySql integration
+##### - Postman integration
 
 ###### Process:
 
@@ -30,15 +30,11 @@
 
 ##### - Updated the posts and checked them using Postman.
 
-##### - Made a database in Mysql and connected to it .
-
-##### - Integrated my routes to use Mysql.
 
 ###### Learnings:
 
 ##### - Gained a deeper understanding of Nodejs
 
-##### - Learned how to use MySQL.
+##### - Learned how to use Postman to check routes.
 
-##### - Learned how to make a database and use the commands .
 
